@@ -14,7 +14,8 @@ public class p680 {
             if (s.charAt(lo) != s.charAt(hi)) {
                 if (jumped) return false;
                 else {
-                    return helper(s.substring(lo+1, hi), true) || (helper(s.substring(lo, hi-1), true));
+                    return helper(s.substring(lo, hi), true) ||
+                            helper(s.substring(lo+1, hi+1), true);
                 }
             } else {
                 lo++;
