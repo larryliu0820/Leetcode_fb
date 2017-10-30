@@ -4,20 +4,13 @@
  */
 public class p714 {
     public int maxProfit(int[] prices, int fee) {
-        int[] dp = new int[prices.length];
+        long T_i0 = 0, T_i1 = Integer.MIN_VALUE;
         for (int i = 1; i < prices.length; i++) {
-            for (int j = 0; j < i; j++) {
-                if (prices[i] - prices[j] <= 2) continue;
-                int currProfit = prices[i] - prices[j] - fee + dp[j];
-                if (currProfit > dp[i]) {
-                    dp[i] = currProfit;
-                }
-            }
-            if (dp[i] < dp[i-1]) {
-                dp[i] = dp[i-1];
-            }
+            long T_i0_old = T_i0;
+            T_i0 = Math.max(T_i0, T_i1+prices[i]-fee);
+            T_i1 = Math.max(T_i1, T_i0_old-prices[i]);
         }
-        return dp[prices.length-1];
+        return (int)T_i0;
     }
 
     public static void main(String[] args) {
