@@ -40,4 +40,38 @@ public class p015 {
         return res;
     }
 
+    public List<List<Integer>> threeSum2(int[] nums) {
+        List<List<Integer>> res = new LinkedList<>();
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i: nums) {
+            map.putIfAbsent(i, 0);
+            map.put(i,map.get(i)+1);
+        }
+        int[] processed = new int[nums.length];
+        int k = 0;
+        for (int key : map.keySet()) {
+            for (int i = 0; i < map.get(key); i++) {
+                processed[k++] = key;
+            }
+        }
+
+        for (int i = 0; i < processed.length-2; i++) {
+            map.put(processed[i], map.get(processed[i])-1);
+            for (int j = i; j < processed.length-1; j++) {
+                while (j < processed.length-1 && processed[j] == processed[j+1]) j++;
+                map.put(processed[j], map.get(processed[j])-1);
+                Integer third = map.get(-(processed[i] + processed[j]));
+                if (third != null && third > 0) {
+                    List<Integer> list = Arrays.asList(
+                            processed[i],
+                            processed[j],
+                            -(processed[i]+processed[j]));
+                    res.add(list);
+                }
+                map.put(processed[j], map.get(processed[j])+1);
+            }
+            map.put(processed[i], map.get(processed[i])+1);
+        }
+        return res;
+    }
 }
