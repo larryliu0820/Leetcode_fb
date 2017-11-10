@@ -7,17 +7,15 @@ import java.util.List;
  */
 public class p017 {
     public List<String> letterCombinations(String digits) {
-        String[] map = new String[]{"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        String[] letters = new String[]{"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
         List<String> res = new LinkedList<>();
         for (char c: digits.toCharArray()) {
+            String lets = letters[c-'0'];
             List<String> temp = new LinkedList<>();
-            String letters = map[c-'0'];
-            for (int i = 0; i < letters.length(); i++) {
-                String letter = letters.substring(i, i+1);
-                if (res.size() == 0) {
-                    temp.add(letter);
-                } else {
-                    for (String s: res) temp.add(s+letter);
+            for (char l: lets.toCharArray()) {
+                if (res.isEmpty()) temp.add("" + l);
+                else {
+                    for (String s : res) temp.add(s + l);
                 }
             }
             res = temp;

@@ -7,19 +7,15 @@ import java.util.PriorityQueue;
  */
 public class p253 {
     public int minMeetingRooms(Interval[] intervals) {
-        PriorityQueue<Integer> list = new PriorityQueue<>();
-        Arrays.sort(intervals, (a, b)->a.start - b.start);
-        for (Interval interval : intervals) {
-            if (list.size() == 0) list.offer(interval.end);
-            else {
-                int lastEnd = list.peek();
-                if (lastEnd <= interval.start) {
-                    list.poll();
-                }
-                list.offer(interval.end);
+        Arrays.sort(intervals, ((interval, t1) -> interval.start - t1.start));
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for (Interval interval: intervals) {
+            if (!pq.isEmpty() && pq.peek() <= interval.start) {
+                pq.poll();
             }
+            pq.offer(interval.end);
         }
-        return list.size();
+        return pq.size();
     }
     public static void main(String[] args) {
         Interval[] intervals = new Interval[6];

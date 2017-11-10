@@ -7,11 +7,11 @@ import java.util.Comparator;
  */
 public class p621 {
     public int leastInterval(char[] tasks, int n) {
-        int[] memo = new int[26];
-        for (char c: tasks) memo[c-'A']++;
-        Arrays.sort(memo);
-        int num = 1;
-        for (int i = 0; i < 25; i++) if (memo[i] == memo[25]) num++;
-        return Math.max(tasks.length, (memo[25] - 1) * (n+1) + num);
+        int[] freq = new int[26];
+        for (char task: tasks) freq[task-'A']++;
+        Arrays.sort(freq);
+        int num = 0;
+        for (int i = 0; i < 26; i++) if (freq[i] == freq[25]) num++;
+        return Math.max(tasks.length, (freq[25]-1) * (n+1) + num);
     }
 }

@@ -10,25 +10,20 @@ public class p297 {
     public String serialize(TreeNode root) {
         if (root == null) return "#";
         StringBuilder sb = new StringBuilder();
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
         sb.append(root.val);
-        while (!queue.isEmpty()) {
-            TreeNode curr = queue.poll();
-
+        while (!q.isEmpty()) {
+            TreeNode curr = q.poll();
             if (curr.left != null) {
-                queue.offer(curr.left);
-                sb.append(",").append(curr.left.val);
-            } else {
-                sb.append(",").append("#");
-            }
+                q.offer(curr.left);
+                sb.append(',').append(curr.left.val);
+            } else sb.append(',').append("#");
 
             if (curr.right != null) {
-                queue.offer(curr.right);
-                sb.append(",").append(curr.right.val);
-            } else {
-                sb.append(",").append("#");
-            }
+                q.offer(curr.right);
+                sb.append(',').append(curr.right.val);
+            } else sb.append(',').append("#");
         }
         while (sb.charAt(sb.length()-1) == '#') sb.delete(sb.length()-2, sb.length());
         return sb.toString();
@@ -37,21 +32,22 @@ public class p297 {
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
         if (data.equals("#")) return null;
-        String[] nodes = data.split(",");
-        TreeNode root = new TreeNode(Integer.parseInt(nodes[0]));
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
+        String[] arr = data.split(",");
+        Queue<TreeNode> q = new LinkedList<>();
+
+        TreeNode root = new TreeNode(Integer.parseInt(arr[0]));
+        q.offer(root);
         int i = 1;
-        while (!queue.isEmpty()) {
-            TreeNode curr = queue.poll();
-            if (i < nodes.length && !nodes[i].equals("#")) {
-                curr.left = new TreeNode(Integer.parseInt(nodes[i]));
-                queue.offer(curr.left);
+        while (!q.isEmpty()) {
+            TreeNode curr = q.poll();
+            if (i < arr.length && !arr[i].equals("#")) {
+                curr.left = new TreeNode(Integer.parseInt(arr[i]));
+                q.offer(curr.left);
             }
             i++;
-            if (i < nodes.length && !nodes[i].equals("#")) {
-                curr.right = new TreeNode(Integer.parseInt(nodes[i]));
-                queue.offer(curr.right);
+            if (i < arr.length && !arr[i].equals("#")) {
+                curr.right = new TreeNode(Integer.parseInt(arr[i]));
+                q.offer(curr.right);
             }
             i++;
         }

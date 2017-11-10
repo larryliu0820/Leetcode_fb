@@ -7,18 +7,20 @@ import java.util.Map;
  */
 public class p325 {
     public int maxSubArrayLen(int[] nums, int k) {
-        if (nums.length == 0) return 0;
-        int max = 0;
-        int[] sum = new int[nums.length];
-        sum[0] = nums[0];
+        if (nums == null || nums.length == 0) return 0;
+        int[] sum = new int[nums.length+1];
         Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < sum.length; i++) {
-            if (i > 0) sum[i] = sum[i-1] + nums[i];
-            if (sum[i] == k) max = Math.max(max, i+1);
-            else if (map.containsKey(sum[i] - k)) max = Math.max(max, i - map.get(sum[i] - k));
-            map.putIfAbsent(sum[i], i);
+        int maxLen = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum[i+1] = sum[i] + nums[i];
+            if (sum[i+1] == k) maxLen = Math.max(maxLen, i+1);
+            else if (map.containsKey(sum[i+1]-k)) {
+                maxLen = Math.max(i-map.get(sum[i+1]-k), maxLen);
+            }
+            map.putIfAbsent(sum[i+1], i);
+
         }
-        return max;
+        return maxLen;
     }
 
     public static void main(String[] args) {

@@ -28,8 +28,8 @@ public class p277 {
 
     public int findCelebrity2(int n) {
         int x = 0;
-        for (int i = 0; i < n; ++i) if (knows(x, i)) x = i;
-        for (int i = 0; i < n; ++i) if (x != i && (knows(x, i) || !knows(i, x))) return -1;
+        for (int i = 0; i < n; i++) if (knows(x, i)) x = i;
+        for (int i = 0; i < n; i++) if (x != i && (knows(x, i) || !knows(i, x))) return -1;
         return x;
     }
 }
