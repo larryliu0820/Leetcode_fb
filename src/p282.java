@@ -2,7 +2,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by mengwliu on 10/30/17
+ * Created by Larry Liu on 11/10/2017.
  * 282. Expression Add Operators
  */
 public class p282 {
@@ -16,7 +16,6 @@ public class p282 {
         dfs("", 0, 0, 0);
         return res;
     }
-
     private void dfs(String path, long result, long last, int index) {
         if (index == num.length()) {
             if (result == target) res.add(path);
